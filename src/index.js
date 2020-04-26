@@ -8,40 +8,37 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 
-app.post('/users', (req, res) => {
+app.post('/users', async (req, res) => {
 	const user = new User(req.body)
 
-	user.save()
-		.then((currentUser) => {
-			res.status(201).send(currentUser)
-		})
-		.catch((error) => {
-			res.status(400).send(error)
-		})
+	try {
+		await user.save()
+		res.status(201).send(user)
+	} catch (error) {
+		res.status(400).send(error)
+	}
 })
 
-app.get('/users', (req, res) => {
-	User.find({})
-		.then((users) => {
-			res.send(users)
-		})
-		.catch((error) => {
-			res.status(400).send(error)
-		})
+app.get('/users', async (req, res) => {
+	try {
+		const users = await User.find({})
+		res.send(users)
+	} catch (error) {
+		res.status(400).send(error)
+	}
 })
 
-app.get('/users/:id', (req, res) => {
-	User.findById(req.params.id)
-		.then((user) => {
-			if (!user) {
-				return res.status(404).send()
-			}
+app.get('/users/:id', async (req, res) => {
+	try {
+		const user = await User.findById(req.params.id)
+		if (!user) {
+			return res.status(404).send()
+		}
 
-			res.send(user)
-		})
-		.catch((error) => {
-			res.status(500).send(error)
-		})
+		res.send(user)
+	} catch (error) {
+		res.status(400).send(error)
+	}
 })
 
 app.get('/tasks', (req, res) => {
