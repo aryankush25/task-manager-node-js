@@ -12,5 +12,12 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
 
 	const db = client.db(databaseName)
 
-	const updateId = new ObjectID('5ea55096615da6550b3707a8')
+	db.collection('users')
+		.deleteMany({ age: 31 })
+		.then((result) => {
+			console.log(result)
+		})
+		.catch((error) => {
+			console.error(error)
+		})
 })
