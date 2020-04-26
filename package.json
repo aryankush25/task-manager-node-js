@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/aryankush25/task-manager-node.js#readme",
   "dependencies": {
-    "mongodb": "^3.5.6"
+    "mongodb": "^3.5.6",
+    "mongoose": "^5.9.10"
   }
 }
