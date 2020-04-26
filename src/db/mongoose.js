@@ -9,23 +9,46 @@ mongoose.connect(connectionURL + '/' + databaseName, {
 	useUnifiedTopology: true
 })
 
-const User = mongoose.model('User', {
-	name: {
+// const User = mongoose.model('User', {
+// 	name: {
+// 		type: String
+// 	},
+// 	age: {
+// 		type: Number
+// 	}
+// })
+
+// const me = new User({
+// 	name: 'Aryan',
+// 	age: 21
+// })
+
+// me.save()
+// 	.then((user) => {
+// 		console.log(user)
+// 	})
+// 	.catch((error) => {
+// 		console.error(error)
+// 	})
+
+const Task = mongoose.model('Task', {
+	description: {
 		type: String
 	},
-	age: {
-		type: Number
+	completed: {
+		type: Boolean
 	}
 })
 
-const me = new User({
-	name: 'Aryan',
-	age: 21
+const task1 = new Task({
+	description: 'I have to complete this course by 27th April 2020',
+	completed: false
 })
 
-me.save()
-	.then((user) => {
-		console.log(user)
+task1
+	.save()
+	.then((task) => {
+		console.log(task)
 	})
 	.catch((error) => {
 		console.error(error)
