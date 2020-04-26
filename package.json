@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/aryankush25/task-manager-node.js/issues"
   },
-  "homepage": "https://github.com/aryankush25/task-manager-node.js#readme"
+  "homepage": "https://github.com/aryankush25/task-manager-node.js#readme",
+  "dependencies": {
+    "mongodb": "^3.5.6"
+  }
 }
