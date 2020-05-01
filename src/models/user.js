@@ -67,7 +67,7 @@ userSchema.virtual('tasks', {
 
 userSchema.methods.toJSON = function () {
   const user = this
-  const userObject = R.omit(['password', 'tokens'], user.toObject())
+  const userObject = R.omit(['password', 'tokens', 'avatar'], user.toObject())
 
   return userObject
 }
