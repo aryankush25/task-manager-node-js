@@ -20,9 +20,19 @@ router.post('/tasks', auth, (req, res) => {
 })
 
 router.get('/tasks', auth, (req, res) => {
+  const { completed } = req.query
+  const match = {}
+
+  if (completed) {
+    match.completed = completed === 'true'
+  }
+
   // Task.find({ owner: req.user._id })
   req.user
-    .populate('tasks')
+    .populate({
+      path: 'tasks',
+      match,
+    })
     .execPopulate()
     .then(() => {
       res.send(req.user.tasks)
