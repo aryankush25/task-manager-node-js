@@ -91,11 +91,33 @@ router.delete('/users/me', auth, async (req, res) => {
 })
 
 const upload = multer({
-  dest: 'avatars',
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter(req, file, cb) {
+    const { originalname } = file
+
+    if (!originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error('Please upload a valid image'))
+    }
+
+    cb(undefined, true)
+  },
 })
 
-router.post('/user/me/avatar', upload.single('avatar'), async (req, res) => {
-  res.send()
-})
+router.post(
+  '/user/me/avatar',
+  auth,
+  upload.single('avatar'),
+  async (req, res) => {
+    req.user.avatar = req.file.buffer
+    await req.user.save()
+
+    res.send()
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+  }
+)
 
 module.exports = router
